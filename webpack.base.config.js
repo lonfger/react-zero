@@ -1,15 +1,31 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: path.resolve(__dirname, './client/src/index.tsx'),
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.join(__dirname,'./client/build'),
+    contentBase: path.resolve(__dirname,'./client/build'),
     compress: true,
-    open: true
+    open: true,
+    stats: {
+      errorDetails: true,
+      colors: true,
+      chunks: false,
+      hash: true,
+      version: true,
+      source: true,
+      warnings: true,
+      noInfo: true,
+      contentBase: './client/build',
+      hot: true,
+      modules: false,
+      errors: true,
+      reasons: true,
+    }
   },
   module: {
     rules: [
@@ -40,15 +56,22 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        type: 'asset'
       }
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx']
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    alias: {
+      '*': path.resolve(__dirname, './client/src/*')
+    }
   },
   plugins: [
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
-    }),
+    })
   ]
 }

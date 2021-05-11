@@ -1,3 +1,10 @@
 import React from 'react';
 
-export default () => <div>hello react</div>
+import fopo from './assets/1.jpg';
+
+export default () => (
+  <>
+    <div>halo react</div>
+    <img src={fopo} alt="fopo" />
+  </>
+)
