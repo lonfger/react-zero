@@ -1,10 +1,10 @@
 import React from 'react';
 
-import fopo from './assets/1.jpg';
+import halo from './assets/1.jpg';
 
 export default () => (
   <>
     <div>halo react</div>
-    <img src={fopo} alt="fopo" />
+    <img src={halo} alt="halo" />
   </>
 )
