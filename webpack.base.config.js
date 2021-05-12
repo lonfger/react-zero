@@ -1,34 +1,21 @@
 const path = require('path');
+const qs = require('querystring');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 const ROOT_PATH = __dirname;
 const APP_PATH = path.resolve(ROOT_PATH, 'client');
-const BUILD_PATH = path.resolve(APP_PATH, 'build');
+const WEBPACK_HOT_MIDDLEWARE = `webpack-hot-middleware/client?${qs.stringify({
+  reload: true,
+  ansiColors: '00FF00',
+  color: '#ff0000',
+  timeout: 20000,
+  path: '/_webpack_hmr'
+})}`;
 
 module.exports = {
-  entry: path.resolve(APP_PATH, 'src/index.tsx'),
-  devServer: {
-    contentBase:  BUILD_PATH,
-    compress: true,
-    open: true,
-    stats: {
-      errorDetails: true,
-      colors: true,
-      chunks: false,
-      hash: true,
-      version: true,
-      source: true,
-      warnings: true,
-      noInfo: true,
-      contentBase: BUILD_PATH,
-      hot: true,
-      modules: false,
-      errors: true,
-      reasons: true,
-    }
-  },
+  entry: [path.resolve(APP_PATH, 'src/index.tsx'), WEBPACK_HOT_MIDDLEWARE],
   module: {
     rules: [
       {
